@@ -1,0 +1,25 @@
+# Dépendances principales
+langgraph==0.2.45
+langchain==0.3.7
+langchain-google-genai==2.0.4
+langchain-community==0.3.5
+google-generativeai==0.8.3
+
+# Vector Store & Embeddings
+chromadb==0.5.20
+sentence-transformers==3.3.1
+faiss-cpu>=1.9.0
+
+# Interface utilisateur
+streamlit==1.40.2
+streamlit-extras==0.4.7
+
+# Traitement de documents
+pypdf==5.1.0
+python-docx==1.1.2
+openpyxl==3.1.5
+
+# Utilitaires
+python-dotenv==1.0.1
+pydantic==2.10.3
+typing-extensions==4.12.2
