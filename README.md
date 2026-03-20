@@ -1,6 +1,6 @@
 # 📚 Générateur de Fiches de Cours Multi-Agents
 
-Système intelligent de génération automatique de fiches de cours basé sur une architecture multi-agents utilisant LangGraph et Gemini AI.
+Système intelligent de génération automatique de fiches de cours basé sur une architecture multi-agents utilisant LangGraph et Ollama.
 
 ## 🎯 Fonctionnalités
 
@@ -32,7 +32,7 @@ Système intelligent de génération automatique de fiches de cours basé sur un
         ▼                   ▼                   ▼
    ┌─────────┐        ┌─────────┐        ┌──────────┐
    │  Writer │◀───────│Validation│────────│  Export  │
-   │ (Gemini)│        │         │        │          │
+   │ (Gemma)│        │         │        │          │
    └─────────┘        └─────────┘        └──────────┘
         │                   │                   │
         │   Génération      │  Contrôle Qualité │  Fichiers
@@ -84,7 +84,7 @@ Système intelligent de génération automatique de fiches de cours basé sur un
 ## 📋 Prérequis
 
 - Python 3.10+
-- Clé API Google Gemini
+
 - Environnement virtuel `.venv` (déjà créé dans votre projet)
 
 ## 🚀 Installation
@@ -101,12 +101,7 @@ pip install -r requirements.txt
 
 ### 2. Configuration
 
-La clé API Gemini est déjà configurée dans `.env`. Si vous devez la modifier :
-
-```bash
-# Éditer le fichier .env
-GOOGLE_API_KEY=votre_cle_api_ici
-```
+Ollama doit etre actif (Gemma3:4b)
 
 ### 3. Structure du Corpus
 
@@ -219,13 +214,7 @@ VALIDATION_THRESHOLDS = {
 MAX_CORRECTION_LOOPS = 3  # Nombre maximum d'itérations
 ```
 
-### Modèle Gemini
 
-```python
-GEMINI_MODEL = "gemini-1.5-flash"  # ou "gemini-1.5-pro"
-GEMINI_TEMPERATURE = 0.7
-GEMINI_MAX_TOKENS = 8192
-```
 
 ## 📊 Optimisations Implémentées
 
@@ -274,13 +263,6 @@ multi-agents-vickson/
 pip install -r requirements.txt
 ```
 
-### Erreur : API Key invalide
-
-Vérifiez votre clé Gemini dans `.env` :
-```bash
-GOOGLE_API_KEY=AIzaSy...
-```
-
 ### Corpus vide
 
 Placez vos PDFs dans `Corpus/Informatique/` ou `Corpus/Mathématiques/`
@@ -308,10 +290,7 @@ Projet académique - Master 2024/2025
 
 ## 👤 Auteur
 
-**Vickson Njembe**
+**Bekoa et Njembe**
 
 Projet Tutoré - Master 2024/2025
 
----
-
-**Note :** Ce système respecte les référentiels officiels et génère des fiches conformes aux programmes d'enseignement. Les situations-problèmes sont contextualisées selon la ville pour un meilleur ancrage pédagogique.
