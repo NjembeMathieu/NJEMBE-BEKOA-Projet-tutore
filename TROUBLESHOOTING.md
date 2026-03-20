@@ -26,37 +26,17 @@ pip list | grep langgraph
 
 ---
 
-### 2. Erreur : API Key invalide
+### 2. Erreur : 500
 
-#### Symptôme
-```
-google.api_core.exceptions.Unauthenticated: 401 Invalid API key
-```
 
 #### Solution
 ```bash
-# Vérifier le fichier .env
-cat .env
-
-# Devrait contenir:
-GOOGLE_API_KEY=AIzaSyDYOBkjZyt3ehIToK_KyC5i5VC7TpzzBF4
-
-# Si absent ou incorrect, éditer .env
-nano .env  # ou vim, code, etc.
+# Demarrer Ollam
+ollama serve
 
 # Redémarrer l'application
 ```
 
-#### Tester la clé API
-```python
-import google.generativeai as genai
-from config import GOOGLE_API_KEY
-
-genai.configure(api_key=GOOGLE_API_KEY)
-model = genai.GenerativeModel('gemini-1.5-flash')
-response = model.generate_content("Test")
-print(response.text)  # Devrait afficher une réponse
-```
 
 ---
 
@@ -127,32 +107,6 @@ chmod -R 755 Corpus/
 
 ---
 
-### 5. Erreur de génération Gemini
-
-#### Symptôme
-```
-Error lors de la génération: rate limit exceeded
-Error lors de la génération: quota exceeded
-```
-
-#### Solution
-
-**Rate Limit :**
-- Attendre 60 secondes entre les générations
-- Utiliser un modèle avec quota plus élevé
-
-**Quota Exceeded :**
-```python
-# Dans config.py, changer le modèle
-GEMINI_MODEL = "gemini-1.5-pro"  # Plus de quota
-# ou
-GEMINI_MODEL = "gemini-1.5-flash"  # Moins gourmand
-```
-
-#### Vérifier les quotas
-https://aistudio.google.com/app/apikey
-
----
 
 ### 6. Score de validation toujours < seuil
 
@@ -250,40 +204,6 @@ chmod 777 output/
 
 ---
 
-### 9. Erreur JSON Parser
-
-#### Symptôme
-```
-Erreur JSON: Expecting property name enclosed in double quotes
-```
-
-#### Cause
-Gemini a retourné du texte non-JSON ou mal formaté
-
-#### Solution
-
-**Automatique** (déjà implémenté) :
-```python
-# Dans agent_writer.py
-def _parser_json_response(self, response_text):
-    # Nettoie les balises markdown
-    text = text.strip()
-    if text.startswith("```json"):
-        text = text[7:]
-    # ...
-```
-
-**Manuel** :
-Augmenter la clarté du prompt :
-```python
-prompt += """
-FORMAT DE SORTIE (JSON STRICT):
-Réponds UNIQUEMENT avec un objet JSON.
-PAS de texte avant ou après.
-PAS de ```json ou ```.
-JUSTE le JSON brut.
-"""
-```
 
 ---
 
@@ -525,7 +445,7 @@ rm -rf vectorstore/ output/ .streamlit/cache
 
 ### Documentation Officielle
 - LangGraph: https://langchain-ai.github.io/langgraph/
-- Gemini API: https://ai.google.dev/docs
+
 - Streamlit: https://docs.streamlit.io/
 
 ### Logs Utiles à Fournir
